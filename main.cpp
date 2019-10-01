@@ -19,7 +19,12 @@ int random_int(int);
 //generate a spinning tree for the graph
 void generate_tree(vector<int>[], set<pair<int, int> >);
 
+//generate node-neighbour matrix from node-node-connectivity matrix
+void generate_graph(vector<int>[], int**);
+
 int main() {
+
+    cout << "hi!\n";
 
     //graph to store circuit
     vector<int> circuit_graph[n];
@@ -27,6 +32,7 @@ int main() {
     //node to node connectivity graph of the circuit
     int **primitive_graph;
 
+    //dynamically alloc the graph array
     // this is where OS tries to do a segmentation fault :))
     primitive_graph = new int* [n];
     for(int i = 0; i < n; i++)
@@ -36,10 +42,7 @@ int main() {
     get_graph(primitive_graph);
 
     //generate node to node connectivity graph based on the primitive graph
-    for(int i = 0; i < n; i++)
-        for(int j = 0; j < n; j++)
-            if(primitive_graph[i][j] == 1)
-                circuit_graph[i].push_back(j);
+    generate_graph(circuit_graph, primitive_graph);
 
     //edges of spanning tree of the circuit graph
     //each edge is a pair of two nodes
@@ -74,7 +77,7 @@ void generate_tree(vector<int> graph[], set<pair<int, int> > s_tree)
 
     //check each edge to see if we can add it to tree
     for(int i = 0; i < n; i++)
-        for(int j = 0; j < graph[i].size(); j++)
+        for(unsigned int j = 0; j < graph[i].size(); j++)
             //see if node is not added before
             if(s_tree_nodes.find(graph[i][j]) == s_tree_nodes.end())
             {
@@ -85,4 +88,14 @@ void generate_tree(vector<int> graph[], set<pair<int, int> > s_tree)
                 s_tree.insert(edge);
             }
 
+}
+
+//generate node-neighbour matrix from node-node-connectivity matrix
+void generate_graph(vector<int> circuit_graph[], int** primitive_graph)
+{
+    //add neighbours for each node
+    for(int i = 0; i < n; i++)
+        for(int j = 0; j < n; j++)
+            if(primitive_graph[i][j] == 1)
+                circuit_graph[i].push_back(j);
 }
