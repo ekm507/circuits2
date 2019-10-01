@@ -1,0 +1,3 @@
+C:/Users/Erfan/CLionProjects/circuits2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Erfan/CLionProjects/circuits2/cmake-build-debug/CMakeFiles/circuits2.dir
+C:/Users/Erfan/CLionProjects/circuits2/cmake-build-debug/CMakeFiles/edit_cache.dir
