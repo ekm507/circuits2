@@ -22,6 +22,9 @@ void generate_tree(vector<int>[], set<pair<int, int> >);
 //generate node-neighbour matrix from node-node-connectivity matrix
 void generate_graph(vector<int>[], int**);
 
+//make a rooted spinning tree.
+int make_tree(vector<vector<int> > tree, vector<int> circuit_graph[]);
+
 int main() {
 
     cout << "hi!\n";
@@ -51,6 +54,9 @@ int main() {
     //generate a spanning tree
     generate_tree(circuit_graph, tree_nodes);
 
+    //generate leveled spanning tree of the graph
+    vector<vector<int> > tree;
+    make_tree(tree, circuit_graph);
 
 
     return 0;
@@ -69,26 +75,6 @@ int random_int(int max)
     return rand() % (max + 1);
 }
 
-void generate_tree(vector<int> graph[], set<pair<int, int> > s_tree)
-{
-    //a set to put nodes so we make tree acyclic
-    set<int> s_tree_nodes;
-    pair<int, int> edge;
-
-    //check each edge to see if we can add it to tree
-    for(int i = 0; i < n; i++)
-        for(unsigned int j = 0; j < graph[i].size(); j++)
-            //see if node is not added before
-            if(s_tree_nodes.find(graph[i][j]) == s_tree_nodes.end())
-            {
-                //add edge to tree
-                s_tree_nodes.insert(graph[i][j]);
-                edge.first = i;
-                edge.second = j;
-                s_tree.insert(edge);
-            }
-
-}
 
 //generate node-neighbour matrix from node-node-connectivity matrix
 void generate_graph(vector<int> circuit_graph[], int** primitive_graph)
